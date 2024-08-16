@@ -1,0 +1,15 @@
+
+.navbar {
+    background-color: #f8f9fa;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 280px;
+    right: 0;
+    z-index: 1000;
+}
+
+/* .container-fluid {
+    display: flex;
+    justify-content: center;
+} */
