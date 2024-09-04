@@ -1,6 +1,6 @@
 
 .menu {
-  background-color: #e9ecef;
+  background-color: #13293D;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -8,6 +8,14 @@
   z-index: 900;
 }
 
-.icon {
-  color: #000 !important; /* Cor preta */
+/* .infoMenu{
+} */
+
+.button:hover{
+  background-color: #1A2E3F;
 }
+
+.hr {
+  color: white;
+}
+
