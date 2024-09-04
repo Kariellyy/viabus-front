@@ -1,0 +1,3 @@
+interface RegisterRouteProps {
+  activePage: string;
+}
