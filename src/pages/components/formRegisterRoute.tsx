@@ -4,8 +4,8 @@ export default function RegisterRoute({ activePage }: RegisterRouteProps) {
   return (
     <>
       {activePage === "cadastrarRotas" && ( 
-        <div className="d-flex justify-content-center">
-          <div className="form d-flex flex-column col-6 gap-2 p-2">
+        <div className="d-flex justify-content-center mt-5 p-6">
+          <div className="form d-flex flex-column col-6 gap-2">
             <input
               className="form-control"
               type="text"
@@ -30,6 +30,7 @@ export default function RegisterRoute({ activePage }: RegisterRouteProps) {
               placeholder="Destino da Rota"
               aria-label="default input example"
             />
+            <button className="btn btn-success" onClick={() => ("cadastrarRotas")} >Salvar</button>
           </div>
         </div>
       )}
