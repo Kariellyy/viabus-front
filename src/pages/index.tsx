@@ -4,10 +4,13 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Menu from "./components/menu";
 import RegisterRoute from "./components/formRegisterRoute";
+import RegisterDriver from "./components/registerDriver";
+import ViewRoutes from "./components/viewRoutes";
 import Navbar from "./components/navbar";
 import styles from "@/styles/main.module.css";
 import CardInfo from "./components/cardInfo";
 import { FaHome, FaRoute, FaUserPlus } from "react-icons/fa";
+
 
 export default function Home() {
   const [activePage, setActivePage] = useState("home");
@@ -51,6 +54,8 @@ export default function Home() {
               )}
             </div>
             <RegisterRoute activePage={activePage}/>
+            <RegisterDriver activePage={activePage}/>
+            <ViewRoutes activePage={activePage}/>
           </main>
         </div>
       </div>

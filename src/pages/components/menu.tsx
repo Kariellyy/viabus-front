@@ -31,9 +31,9 @@ export default function Menu({ setActivePage }: { setActivePage: React.Dispatch<
           </button>
         </li>
         <li className={`nav-item ${styles.button}`}>
-          <button className="nav-link text-light" onClick={() => setActivePage("rotas")}>
+          <button className="nav-link text-light" onClick={() => setActivePage("viewRoutes")}>
             <FaRoute className="me-2 text-light" />
-            Rotas
+            Visualizar Rotas
           </button>
         </li>
         <li className={`nav-item ${styles.button}`}>
