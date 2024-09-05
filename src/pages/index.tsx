@@ -1,4 +1,3 @@
-// pages/index.js
 import Head from "next/head";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,9 +10,17 @@ import styles from "@/styles/main.module.css";
 import CardInfo from "./components/cardInfo";
 import { FaHome, FaRoute, FaUserPlus } from "react-icons/fa";
 
-
 export default function Home() {
   const [activePage, setActivePage] = useState("home");
+
+  // Estado para armazenar múltiplas rotas usando o tipo CardRoutes
+  const [routes, setRoutes] = useState<CardRoutes[]>([]);
+
+  // Função para adicionar uma nova rota ao estado
+  const addRoute = (newRoute: CardRoutes) => {
+    setRoutes((prevRoutes) => [...prevRoutes, newRoute]);
+  };
+
   return (
     <>
       <Head>
@@ -53,9 +60,16 @@ export default function Home() {
                 </>
               )}
             </div>
-            <RegisterRoute activePage={activePage}/>
-            <RegisterDriver activePage={activePage}/>
-            <ViewRoutes activePage={activePage}/>
+            <RegisterRoute
+              activePage={activePage}
+              addRoute={addRoute} // Passa a função para adicionar uma nova rota
+              setActivePage={setActivePage} // Permite mudar a página ativa
+            />
+            <RegisterDriver activePage={activePage} />
+            <ViewRoutes 
+              activePage={activePage} 
+              routes={routes} // Passa o array de rotas para o componente ViewRoutes
+            />
           </main>
         </div>
       </div>

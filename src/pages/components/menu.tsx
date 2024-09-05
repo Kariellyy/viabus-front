@@ -1,4 +1,3 @@
-// components/menu.js
 import React from "react";
 import { SetStateAction } from "react";
 import {
@@ -31,7 +30,7 @@ export default function Menu({ setActivePage }: { setActivePage: React.Dispatch<
           </button>
         </li>
         <li className={`nav-item ${styles.button}`}>
-          <button className="nav-link text-light" onClick={() => setActivePage("viewRoutes")}>
+          <button className="nav-link text-light" onClick={() => setActivePage("visualizarRotas")}>
             <FaRoute className="me-2 text-light" />
             Visualizar Rotas
           </button>
