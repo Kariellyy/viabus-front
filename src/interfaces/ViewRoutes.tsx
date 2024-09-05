@@ -1,0 +1,3 @@
+interface ViewRoutesProps {
+  activePage: string;
+}
