@@ -63,13 +63,13 @@ const Sidebar: React.FC = () => {
                     </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/admin/routes/view"
                       className="nav-link text-light bg-dark"
                     >
                       <FaEye className="me-2" />
                       Visualizar rotas
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -108,13 +108,13 @@ const Sidebar: React.FC = () => {
                     </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/admin/stops/view"
                       className="nav-link text-light bg-dark"
                     >
                       <FaEye className="me-2" />
                       Visualizar paradas
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -144,13 +144,13 @@ const Sidebar: React.FC = () => {
               <div className="accordion-body p-0">
                 <ul className="list-unstyled small ms-3">
                   <li>
-                    <a
+                    <Link
                       href="/listaPassageiros"
                       className="nav-link text-light bg-dark"
                     >
                       <FaList className="me-2" />
                       Lista de passageiros
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -180,22 +180,22 @@ const Sidebar: React.FC = () => {
               <div className="accordion-body p-0">
                 <ul className="list-unstyled small ms-3">
                   <li>
-                    <a
+                    <Link
                       href="/relatorios/viagens"
                       className="nav-link text-light bg-dark"
                     >
                       <FaBus className="me-2" />
                       Viagens
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/relatorios/folhaPagamento"
                       className="nav-link text-light bg-dark"
                     >
                       <FaDollarSign className="me-2" />
                       Folha de pagamento
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -225,22 +225,22 @@ const Sidebar: React.FC = () => {
               <div className="accordion-body p-0">
                 <ul className="list-unstyled small ms-3">
                   <li>
-                    <a
+                    <Link
                       href="/admin/employees/add"
                       className="nav-link text-light bg-dark"
                     >
                       <FaPlus className="me-2" />
                       Cadastrar funcionário
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
+                    <Link
                       href="/admin/employees/view"
                       className="nav-link text-light bg-dark"
                     >
                       <FaEye className="me-2" />
                       Visualizar funcionários
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -251,13 +251,13 @@ const Sidebar: React.FC = () => {
 
       <div className="mt-auto">
         <hr className="text-secondary" />
-        <a
+        <Link
           href="#logout"
           className="d-flex align-items-center text-light text-decoration-none"
         >
           <FaSignOutAlt className="me-2" />
           <strong>Log out</strong>
-        </a>
+        </Link>
       </div>
     </div>
   );
