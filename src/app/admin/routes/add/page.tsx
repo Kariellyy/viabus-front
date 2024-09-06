@@ -3,7 +3,7 @@ import React from "react";
 const AddPage: React.FC = () => {
   return (
     <div className="d-flex justify-content-center align-items-center">
-      <div className="card w-50 shadow">
+      <div className="card col-8 shadow">
         <div className="card-body">
           <h5 className="card-title text-center mb-4">Nova Rota</h5>
           <form>
