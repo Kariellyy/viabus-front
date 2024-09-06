@@ -42,9 +42,27 @@ export default function Menu({ setActivePage }: { setActivePage: React.Dispatch<
           </button>
         </li>
         <li className={`nav-item ${styles.button}`}>
+          <button className="nav-link text-light" onClick={() => setActivePage("cadastrarParada")}>
+            <FaRoute className="me-2 text-light" />
+            Cadastrar Parada
+          </button>
+        </li>
+        <li className={`nav-item ${styles.button}`}>
+          <button className="nav-link text-light" onClick={() => setActivePage("visualizarParadas")}>
+            <FaUsers className="me-2 text-light" />
+            Visualizar paradas
+          </button>
+        </li>
+        <li className={`nav-item ${styles.button}`}>
           <button className="nav-link text-light" onClick={() => setActivePage("cadastrarMotorista")}>
             <FaUserPlus className="me-2 text-light" />
             Cadastrar motorista
+          </button>
+        </li>
+        <li className={`nav-item ${styles.button}`}>
+          <button className="nav-link text-light" onClick={() => setActivePage("visualizarMotorista")}>
+            <FaUserPlus className="me-2 text-light" />
+            Visualizar motorista
           </button>
         </li>
         <li className={`nav-item ${styles.button}`}>

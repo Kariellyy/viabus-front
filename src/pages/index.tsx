@@ -9,16 +9,27 @@ import Navbar from "./components/navbar";
 import styles from "@/styles/main.module.css";
 import CardInfo from "./components/cardInfo";
 import { FaHome, FaRoute, FaUserPlus } from "react-icons/fa";
+import RegisterStop from "./components/resgisterStop";
+import ViewStop from "./components/viewStop";
+import { CardRoutes, CardStops } from "./types";
 
 export default function Home() {
   const [activePage, setActivePage] = useState("home");
 
-  // Estado para armazenar múltiplas rotas usando o tipo CardRoutes
+  // Estado para armazenar múltiplas rotas
   const [routes, setRoutes] = useState<CardRoutes[]>([]);
 
-  // Função para adicionar uma nova rota ao estado
+  // Estado para armazenar múltiplas paradas
+  const [stops, setStops] = useState<CardStops[]>([]);
+
+  // Função para adicionar uma nova rota
   const addRoute = (newRoute: CardRoutes) => {
     setRoutes((prevRoutes) => [...prevRoutes, newRoute]);
+  };
+
+  // Função para adicionar uma nova parada
+  const addStop = (newStop: CardStops) => {
+    setStops((prevStops) => [...prevStops, newStop]);
   };
 
   return (
@@ -68,7 +79,18 @@ export default function Home() {
             <RegisterDriver activePage={activePage} />
             <ViewRoutes 
               activePage={activePage} 
+              setActivePage={setActivePage} // Permite mudar a página ativa
               routes={routes} // Passa o array de rotas para o componente ViewRoutes
+            />
+            <RegisterStop 
+              activePage={activePage}
+              addRoute={addRoute}
+              setActivePage={setActivePage}
+            />
+            <ViewStop
+              activePage={activePage}
+              setActivePage={setActivePage}
+              stops={routes} 
             />
           </main>
         </div>
