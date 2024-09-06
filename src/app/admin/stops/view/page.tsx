@@ -1,5 +1,5 @@
 import React from 'react';
-import StopCard from '../components/StopCard'; // Importar o componente StopCard
+import StopCard from '../../../components/admin/stops/StopCard'; // Importar o componente StopCard
 
 const VisualizarParadasPage: React.FC = () => {
   // Simulação de dados de paradas

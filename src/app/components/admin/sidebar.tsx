@@ -4,16 +4,16 @@ import {
   FaHome,
   FaRoute,
   FaSignOutAlt,
-  FaUsers,
   FaClipboard,
   FaUserPlus,
   FaPlus,
-  FaList,
   FaBus,
   FaDollarSign,
   FaEye,
+  FaCircle,
+  FaClock,
 } from "react-icons/fa";
-import { FaHand } from "react-icons/fa6";
+import { FaCircleCheck, FaHand } from "react-icons/fa6";
 
 const Sidebar: React.FC = () => {
   return (
@@ -31,6 +31,63 @@ const Sidebar: React.FC = () => {
             Home
           </Link>
         </li>
+
+        {/* Accordion for Viagens */}
+        <div className="accordion-item bg-dark border-0">
+            <h2 className="accordion-header">
+              <button
+                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 px-2" // Reduzido padding
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapsePassageiros"
+                aria-expanded="false"
+                aria-controls="collapsePassageiros"
+              >
+                <FaBus className="me-2" />
+                Viagens
+              </button>
+            </h2>
+            <div
+              id="collapsePassageiros"
+              className="accordion-collapse collapse"
+              data-bs-parent="#accordionSidebar"
+            >
+              <div className="accordion-body p-0">
+                <ul className="list-unstyled small ms-3">
+                <li>
+                    {/* criar viagem */}
+                    <Link
+                      href="/admin/trips/add"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
+                    >
+                      <FaClock className="me-2" />
+                      Agendar viagens
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/admin/trips/active"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
+                    >
+                      <FaCircle className="me-2" />
+                      Viagens ativas
+                    </Link>
+                  </li>
+                  <li>
+                    {/* viagens finalizadas */}
+                    <Link
+                      href="/admin/trips/finished"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
+                    >
+                      <FaCircleCheck className="me-2" />
+                      Viagens finalizadas
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
         {/* Accordion for various sections */}
         <div className="accordion" id="accordionSidebar">
           {/* Accordion for Rotas */}
@@ -116,42 +173,6 @@ const Sidebar: React.FC = () => {
                     >
                       <FaEye className="me-2" />
                       Visualizar paradas
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Accordion for Passageiros */}
-          <div className="accordion-item bg-dark border-0">
-            <h2 className="accordion-header">
-              <button
-                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 px-2" // Reduzido padding
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapsePassageiros"
-                aria-expanded="false"
-                aria-controls="collapsePassageiros"
-              >
-                <FaUsers className="me-2" />
-                Passageiros
-              </button>
-            </h2>
-            <div
-              id="collapsePassageiros"
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionSidebar"
-            >
-              <div className="accordion-body p-0">
-                <ul className="list-unstyled small ms-3">
-                  <li>
-                    <Link
-                      href="/listaPassageiros"
-                      className="nav-link text-light bg-dark py-1" // Reduzido padding
-                    >
-                      <FaList className="me-2" />
-                      Lista de passageiros
                     </Link>
                   </li>
                 </ul>
