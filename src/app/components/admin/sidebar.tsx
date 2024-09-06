@@ -18,24 +18,26 @@ import { FaHand } from "react-icons/fa6";
 const Sidebar: React.FC = () => {
   return (
     <div
-      className="d-flex flex-column flex-shrink-0 p-3 bg-dark text-light"
-      style={{ height: "90vh" }}
+      className="d-flex flex-column flex-shrink-0 p-2 bg-dark text-light"
+      style={{ height: "calc(100vh - 56px)", fontSize: "0.875rem" }} // Reduzimos o padding geral e o font-size
     >
-      <ul className="nav nav-pills flex-column mb-auto">
+      <ul className="nav nav-pills flex-column mt-2">
         <li className="nav-item">
-          <Link href="/admin" className="nav-link text-light bg-dark">
+          <Link
+            href="/admin"
+            className="nav-link text-light bg-dark rounded-2 py-2 px-2"
+          >
             <FaHome className="me-2" />
             Home
           </Link>
         </li>
-
         {/* Accordion for various sections */}
         <div className="accordion" id="accordionSidebar">
           {/* Accordion for Rotas */}
           <div className="accordion-item bg-dark border-0">
             <h2 className="accordion-header">
               <button
-                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 my-1 my-1 px-3"
+                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 px-2" // Reduzido padding
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseRotas"
@@ -56,7 +58,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/admin/routes/add"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaPlus className="me-2" />
                       Nova rota
@@ -65,7 +67,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/admin/routes/view"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaEye className="me-2" />
                       Visualizar rotas
@@ -76,11 +78,11 @@ const Sidebar: React.FC = () => {
             </div>
           </div>
 
-          {/* Accordian for Paradas */}
+          {/* Accordion for Paradas */}
           <div className="accordion-item bg-dark border-0">
             <h2 className="accordion-header">
               <button
-                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 my-1 px-3"
+                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 px-2" // Reduzido padding
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseParadas"
@@ -101,7 +103,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/admin/stops/add"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaPlus className="me-2" />
                       Nova parada
@@ -110,7 +112,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/admin/stops/view"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaEye className="me-2" />
                       Visualizar paradas
@@ -125,7 +127,7 @@ const Sidebar: React.FC = () => {
           <div className="accordion-item bg-dark border-0">
             <h2 className="accordion-header">
               <button
-                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 my-1 px-3"
+                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 px-2" // Reduzido padding
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapsePassageiros"
@@ -146,7 +148,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/listaPassageiros"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaList className="me-2" />
                       Lista de passageiros
@@ -161,7 +163,7 @@ const Sidebar: React.FC = () => {
           <div className="accordion-item bg-dark border-0">
             <h2 className="accordion-header">
               <button
-                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 my-1 px-3"
+                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 px-2" // Reduzido padding
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseRelatorios"
@@ -182,7 +184,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/relatorios/viagens"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaBus className="me-2" />
                       Viagens
@@ -191,7 +193,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/relatorios/folhaPagamento"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaDollarSign className="me-2" />
                       Folha de pagamento
@@ -206,7 +208,7 @@ const Sidebar: React.FC = () => {
           <div className="accordion-item bg-dark border-0">
             <h2 className="accordion-header">
               <button
-                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 my-1 px-3"
+                className="accordion-button collapsed bg-dark text-light rounded-2 py-2 px-2" // Reduzido padding
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseFuncionarios"
@@ -227,7 +229,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/admin/employees/add"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaPlus className="me-2" />
                       Cadastrar funcionário
@@ -236,7 +238,7 @@ const Sidebar: React.FC = () => {
                   <li>
                     <Link
                       href="/admin/employees/view"
-                      className="nav-link text-light bg-dark"
+                      className="nav-link text-light bg-dark py-1" // Reduzido padding
                     >
                       <FaEye className="me-2" />
                       Visualizar funcionários
