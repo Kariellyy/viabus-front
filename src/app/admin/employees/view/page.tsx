@@ -1,5 +1,5 @@
 import React from 'react';
-import EmployeeCard from '../components/EmployeeCard'; // Importa o componente EmployeeCard
+import EmployeeCard from '../../../components/admin/employees/EmployeeCard'; // Importa o componente EmployeeCard
 
 const EmployeeListPage: React.FC = () => {
   // Simulação de dados de funcionários

@@ -3,7 +3,7 @@ import "./globals.css"
 
 // bootstrap
 import "bootstrap/dist/css/bootstrap.css"; 
-import InstallBootstrapJs from "./components/specific-feature/bootstrapJs";
+import InstallBootstrapJs from "./components/config/bootstrapJs";
 
 
 export const metadata: Metadata = {

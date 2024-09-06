@@ -1,6 +1,6 @@
 // app/dashboard/layout.tsx
 
-import Sidebar from "./components/sidebar";
+import Sidebar from "../components/admin/sidebar";
 
 const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (

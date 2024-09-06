@@ -1,5 +1,5 @@
 import React from 'react';
-import RouteCard from '../components/routeCard';
+import RouteCard from '../../../components/admin/routes/routeCard';
 
 const VisualizarRotasPage: React.FC = () => {
   const routes = [
