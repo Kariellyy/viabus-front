@@ -65,7 +65,7 @@ const Sidebar: React.FC = () => {
                 <li>
                   {/* criar viagem */}
                   <Link
-                    href="/admin/trips/add"
+                    href="/admin/trip/add"
                     className="nav-link text-light bg-dark py-1" // Reduzido padding
                   >
                     <FaClock className="me-2" />
@@ -74,7 +74,7 @@ const Sidebar: React.FC = () => {
                 </li>
                 <li>
                   <Link
-                    href="/admin/trips/active"
+                    href="/admin/trip/active"
                     className="nav-link text-light bg-dark py-1" // Reduzido padding
                   >
                     <FaCircle className="me-2" />
@@ -84,7 +84,7 @@ const Sidebar: React.FC = () => {
                 <li>
                   {/* viagens finalizadas */}
                   <Link
-                    href="/admin/trips/finished"
+                    href="/admin/trip/finished"
                     className="nav-link text-light bg-dark py-1" // Reduzido padding
                   >
                     <FaCircleCheck className="me-2" />

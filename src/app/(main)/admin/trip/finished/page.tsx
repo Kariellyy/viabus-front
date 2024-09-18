@@ -1,5 +1,5 @@
 import React from "react";
-import TripCard from "../../../components/admin/trip/tripCard"; 
+import TripCard from "../../../../components/admin/trip/tripCard";
 
 const FinishedTripsPage: React.FC = () => {
   const tripsFinished = [
@@ -15,7 +15,9 @@ const FinishedTripsPage: React.FC = () => {
     },
   ];
 
-  const finishedTrips = tripsFinished.filter((trip) => trip.status === "finalizada");
+  const finishedTrips = tripsFinished.filter(
+    (trip) => trip.status === "finalizada"
+  );
 
   return (
     <div>
