@@ -1,32 +1,32 @@
-import React from 'react';
-import EmployeeCard from '../../../components/admin/employees/EmployeeCard'; // Importa o componente EmployeeCard
+import React from "react";
+import EmployeeCard from "@/components/admin/employees/EmployeeCard";
 
 const EmployeeListPage: React.FC = () => {
   // Simulação de dados de funcionários
   const employees = [
     {
-      name: 'Carlos Silva',
-      email: 'carlos.silva@viabus.com',
-      role: 'Motorista',
-      phoneNumber: '(11) 98765-4321',
+      name: "Carlos Silva",
+      email: "carlos.silva@viabus.com",
+      role: "Motorista",
+      phoneNumber: "(11) 98765-4321",
     },
     {
-      name: 'Maria Oliveira',
-      email: 'maria.oliveira@viabus.com',
-      role: 'Atendente',
-      phoneNumber: '(31) 99876-5432',
+      name: "Maria Oliveira",
+      email: "maria.oliveira@viabus.com",
+      role: "Atendente",
+      phoneNumber: "(31) 99876-5432",
     },
     {
-      name: 'João Souza',
-      email: 'joao.souza@viabus.com',
-      role: 'Gerente',
-      phoneNumber: '(21) 91234-5678',
+      name: "João Souza",
+      email: "joao.souza@viabus.com",
+      role: "Gerente",
+      phoneNumber: "(21) 91234-5678",
     },
     {
-      name: 'Ana Costa',
-      email: 'ana.costa@viabus.com',
-      role: 'Motorista',
-      phoneNumber: '(71) 99888-1122',
+      name: "Ana Costa",
+      email: "ana.costa@viabus.com",
+      role: "Motorista",
+      phoneNumber: "(71) 99888-1122",
     },
   ];
 

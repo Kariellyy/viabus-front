@@ -1,13 +1,23 @@
-import React from 'react';
-import RouteCard from '../../../components/admin/routes/routeCard';
+import React from "react";
+import RouteCard from "@/components/admin/routes/RouteCard";
 
 const VisualizarRotasPage: React.FC = () => {
   const routes = [
-    { from: 'São Paulo', to: 'Rio de Janeiro', time: '10:00', price: 'R$ 150,00' },
-    { from: 'Belo Horizonte', to: 'Brasília', time: '14:00', price: 'R$ 120,00' },
-    { from: 'Salvador', to: 'Recife', time: '16:30', price: 'R$ 180,00' },
-    { from: 'Porto Alegre', to: 'Curitiba', time: '08:00', price: 'R$ 110,00' },
-    { from: 'Manaus', to: 'Belém', time: '13:00', price: 'R$ 200,00' },
+    {
+      from: "São Paulo",
+      to: "Rio de Janeiro",
+      time: "10:00",
+      price: "R$ 150,00",
+    },
+    {
+      from: "Belo Horizonte",
+      to: "Brasília",
+      time: "14:00",
+      price: "R$ 120,00",
+    },
+    { from: "Salvador", to: "Recife", time: "16:30", price: "R$ 180,00" },
+    { from: "Porto Alegre", to: "Curitiba", time: "08:00", price: "R$ 110,00" },
+    { from: "Manaus", to: "Belém", time: "13:00", price: "R$ 200,00" },
   ];
 
   return (

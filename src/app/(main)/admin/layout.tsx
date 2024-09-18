@@ -1,6 +1,8 @@
-import Sidebar from "../components/admin/sidebar";
+import Sidebar from "@/components/admin/Sidebar";
 
-const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   return (
     <div className="d-flex flex-column min-vh-100">
       {/* Navbar fixa no topo */}
@@ -18,14 +20,15 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
           <a className="navbar-brand ms-2" href="#">
             VIABUS
           </a>
-          <div className="d-flex gap-3">
-
-          </div>
+          <div className="d-flex gap-3"></div>
         </div>
       </nav>
 
       {/* Layout principal com grid responsivo */}
-      <div className="container-fluid flex-grow-1" style={{ marginTop: "56px" }}>
+      <div
+        className="container-fluid flex-grow-1"
+        style={{ marginTop: "56px" }}
+      >
         <div className="row flex-nowrap">
           {/* Sidebar offcanvas para dispositivos móveis */}
           <div
@@ -53,9 +56,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
           {/* Conteúdo principal */}
           <div className="col py-3 d-flex justify-content-center align-items-center">
-            <div className="content-wrapper w-100">
-              {children}
-            </div>
+            <div className="content-wrapper w-100">{children}</div>
           </div>
         </div>
       </div>

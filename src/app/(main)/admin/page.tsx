@@ -17,7 +17,7 @@ import {
   DoughnutController,
 } from "chart.js";
 import React, { useEffect } from "react";
-import CardInfo from "../components/admin/cardInfo";
+import CardInfo from "@/components/admin/CardInfo";
 import { FaHome, FaRoute, FaUserPlus } from "react-icons/fa";
 
 // Registrar os componentes do Chart.js necessários
