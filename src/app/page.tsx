@@ -1,12 +1,40 @@
+"use client";
+
 import React from "react";
-import { redirect } from "next/navigation";
+import Link from "next/link";
+import LoginButton from "@/components/common/LoginButton";
+import { signOut, useSession } from "next-auth/react";
+import SignOutButton from "@/components/common/SignOutButton";
 
 export default function Home() {
-  // mandar para a rota /login
-  redirect("/admin");
+  // pegar a session
+  const { data: session } = useSession();
 
-  // Isso é provisório. Aqui terá a landing page inicial do site que irá 
-  // capturar o usuário e redirecionar para a página de login
-
-  return <></>;
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <Link href="/" className="navbar-brand">
+            Navbar
+          </Link>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto d-flex gap-2">
+              {session ? (
+                session.user.role === "ADMIN" ? (
+                  <li className="nav-item">
+                  <Link href={"/admin"}>
+                    <button className="btn btn-secondary">Admin</button>
+                  </Link>
+                </li>
+                ) : null
+              ) : null}
+              <li className="nav-item">
+                {session ? <SignOutButton /> : <LoginButton />}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
 }

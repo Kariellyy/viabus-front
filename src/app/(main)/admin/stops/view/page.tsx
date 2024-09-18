@@ -1,41 +1,41 @@
-import React from 'react';
-import StopCard from '../../../components/admin/stops/StopCard'; // Importar o componente StopCard
+import React from "react";
+import StopCard from "@/components/admin/stops/StopCard";
 
 const VisualizarParadasPage: React.FC = () => {
   // Simulação de dados de paradas
   const stops = [
     {
-      name: 'Parada Central',
-      boardingTime: '08:00',
-      street: 'Rua Principal',
+      name: "Parada Central",
+      boardingTime: "08:00",
+      street: "Rua Principal",
       number: 123,
-      complement: 'Apto 201',
-      neighborhood: 'Centro',
-      city: 'São Paulo',
-      state: 'SP',
-      cep: '01000-000',
+      complement: "Apto 201",
+      neighborhood: "Centro",
+      city: "São Paulo",
+      state: "SP",
+      cep: "01000-000",
     },
     {
-      name: 'Parada Norte',
-      boardingTime: '09:30',
-      street: 'Av. dos Imigrantes',
+      name: "Parada Norte",
+      boardingTime: "09:30",
+      street: "Av. dos Imigrantes",
       number: 45,
-      complement: '',
-      neighborhood: 'Imigrantes',
-      city: 'Belo Horizonte',
-      state: 'MG',
-      cep: '30140-080',
+      complement: "",
+      neighborhood: "Imigrantes",
+      city: "Belo Horizonte",
+      state: "MG",
+      cep: "30140-080",
     },
     {
-      name: 'Parada Sul',
-      boardingTime: '10:00',
-      street: 'Rua das Flores',
+      name: "Parada Sul",
+      boardingTime: "10:00",
+      street: "Rua das Flores",
       number: 789,
-      complement: 'Próximo à praça',
-      neighborhood: 'Jardim das Flores',
-      city: 'Curitiba',
-      state: 'PR',
-      cep: '80210-300',
+      complement: "Próximo à praça",
+      neighborhood: "Jardim das Flores",
+      city: "Curitiba",
+      state: "PR",
+      cep: "80210-300",
     },
   ];
 

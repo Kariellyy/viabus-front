@@ -1,3 +1,6 @@
+"use client";
+
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import {
@@ -16,6 +19,11 @@ import {
 import { FaCircleCheck, FaHand } from "react-icons/fa6";
 
 const Sidebar: React.FC = () => {
+
+  const handleSignOut = async () => {
+    await signOut();
+  }
+
   return (
     <div
       className="d-flex flex-column flex-shrink-0 p-2 bg-dark text-light"
@@ -57,7 +65,7 @@ const Sidebar: React.FC = () => {
                 <li>
                   {/* criar viagem */}
                   <Link
-                    href="/admin/trip/add"
+                    href="/admin/trips/add"
                     className="nav-link text-light bg-dark py-1" // Reduzido padding
                   >
                     <FaClock className="me-2" />
@@ -66,17 +74,18 @@ const Sidebar: React.FC = () => {
                 </li>
                 <li>
                   <Link
-                    href="/admin/trip/active" 
-                    className="nav-link text-light bg-dark py-1"
+                    href="/admin/trips/active"
+                    className="nav-link text-light bg-dark py-1" // Reduzido padding
                   >
                     <FaCircle className="me-2" />
                     Viagens ativas
                   </Link>
                 </li>
                 <li>
+                  {/* viagens finalizadas */}
                   <Link
-                    href="/admin/trip/finished" 
-                    className="nav-link text-light bg-dark py-1"
+                    href="/admin/trips/finished"
+                    className="nav-link text-light bg-dark py-1" // Reduzido padding
                   >
                     <FaCircleCheck className="me-2" />
                     Viagens finalizadas
@@ -273,10 +282,7 @@ const Sidebar: React.FC = () => {
 
       <div className="mt-auto">
         <hr className="text-secondary" />
-        <Link
-          href="#logout"
-          className="d-flex align-items-center text-light text-decoration-none"
-        >
+        <Link href="/" className="d-flex align-items-center text-light text-decoration-none" onClick={handleSignOut}>
           <FaSignOutAlt className="me-2" />
           <strong>Log out</strong>
         </Link>
