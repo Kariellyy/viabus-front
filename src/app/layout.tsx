@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import "./globals.css"
+import "./globals.css";
 
 // bootstrap
-import "bootstrap/dist/css/bootstrap.css"; 
-import InstallBootstrapJs from "./components/config/bootstrapJs";
-
+import "bootstrap/dist/css/bootstrap.css";
+import InstallBootstrapJs from "@/components/config/BootstrapJs";
+import AuthProvider from "./context/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +20,8 @@ export default function RootLayout({
     <html lang="pt-br">
       <body>
         <InstallBootstrapJs />
-        {children}</body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
