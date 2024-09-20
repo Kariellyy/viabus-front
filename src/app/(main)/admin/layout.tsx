@@ -1,4 +1,5 @@
 import Sidebar from "@/components/admin/Sidebar";
+import Image from "next/image";
 
 const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -17,8 +18,8 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a className="navbar-brand ms-2" href="#">
-            VIABUS
+          <a className="navbar-brand p-0" href="#">
+            <Image src="/logo-viabus-1.png" alt="Logo Viabus" width={100} height={40}/>
           </a>
           <div className="d-flex gap-3"></div>
         </div>
