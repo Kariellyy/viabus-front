@@ -1,21 +1,19 @@
-import React from 'react';
-import { FaMapMarkerAlt, FaClock, FaAddressCard } from 'react-icons/fa';
+import React from "react";
+import { FaMapMarkerAlt, FaMapPin, FaHome, FaEnvelope } from "react-icons/fa";
 
 interface StopCardProps {
   name: string;
-  boardingTime: string;
   street: string;
-  number: number;
-  complement: string;
-  neighborhood: string;
+  number: number | null;
+  complement: string | null;
+  neighborhood: string | null;
   city: string;
   state: string;
-  cep: string;
+  cep: number | null;
 }
 
 const StopCard: React.FC<StopCardProps> = ({
   name,
-  boardingTime,
   street,
   number,
   complement,
@@ -25,23 +23,32 @@ const StopCard: React.FC<StopCardProps> = ({
   cep,
 }) => {
   return (
-    <div className="card p-3 mb-4 shadow-sm rounded-3 h-100">
-      <div className="card-body d-flex flex-column justify-content-center">
-        <h5 className="card-title">
-          <FaMapMarkerAlt className="me-2" />
-          Parada: {name}
+    <div className="card mb-4 stop-card">
+      <div className="card-body">
+        <h5 className="card-title mb-3">
+          <FaMapMarkerAlt className="me-2 text-primary" />
+          {name}
         </h5>
-        <p className="card-text">
-          <FaClock className="me-2" />
-          Horário de embarque: {boardingTime}
-        </p>
-        <h6 className="card-subtitle mb-2 text-muted">
-          <FaAddressCard className="me-2" />
-          Endereço:
-        </h6>
-        <p className="card-text">
-          {street}, {number} {complement && `(${complement})`}, {neighborhood}, {city} - {state}, {cep}
-        </p>
+        <div className="mb-2">
+          <FaHome className="me-2 text-secondary" />
+          {street}, {number}, {neighborhood && <span>{neighborhood}, </span>}
+          {city} - {state}.
+        </div>
+        <div className="mb-2">
+          <FaMapPin className="me-2 text-secondary" />
+          {complement}
+        </div>
+        <div className="mb-3">
+          <FaEnvelope className="me-2 text-secondary" />
+          {cep && cep.toString().replace(/(\d{5})(\d{3})/, "$1-$2")}
+        </div>
+        <a
+          href="#"
+          className="btn btn-outline-primary w-100"
+          style={{ borderRadius: "25px" }}
+        >
+          Ver detalhes
+        </a>
       </div>
     </div>
   );

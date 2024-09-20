@@ -1,5 +1,5 @@
 import React from "react";
-import TripCard from "../../../../components/admin/trip/tripCard";
+import TripCard from "../../../../../components/admin/trip/tripCard";
 
 const ActiveTripsPage: React.FC = () => {
   const tripsActiva = [

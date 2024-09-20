@@ -1,5 +1,7 @@
 import { checkUser } from "@/services/user/checkUser";
 import { createUser } from "@/services/user/createUser";
+import IResponse from "@/types/response";
+import { User } from "@/types/user";
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -15,19 +17,25 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ account }) {
-      let role = ""; // Variável para armazenar o role
+      let role; // Variável para armazenar o role
       try {
         // Verifica se o usuário já existe no back-end
-        const response = await checkUser(account?.id_token!);
-        if (response.ok) {
+        const response = (await checkUser(account?.id_token!)) as IResponse;
+        console.log(response);
+        if (response.success) {
           console.log("Usuário já existe no back-end");
-          role = response.data.role; // Armazena o role do usuário
+          let data = response.data as User;
+          role = data.role;
         } else {
           // Cria o usuário no back-end
-          const createResponse = await createUser(account?.id_token!);
-          if (createResponse.ok) {
+          const createResponse = (await createUser(
+            account?.id_token!
+          )) as IResponse;
+          if (createResponse.success) {
             console.log("Usuário criado no back-end");
-            role = createResponse.data.role; // Armazena o role após criação
+            let data = createResponse.data as User;
+            console.log(data);
+            role = data.role;
           } else {
             console.error("Erro ao criar ou autenticar o usuário no back-end");
             return false;

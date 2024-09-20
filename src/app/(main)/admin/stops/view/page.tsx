@@ -1,99 +1,94 @@
-import React from "react";
-import StopCard from "@/components/admin/stops/StopCard";
+"use client";
 
-const VisualizarParadasPage: React.FC = () => {
-  // Simulação de dados de paradas
-  const stops = [
-    {
-      name: "Parada Central",
-      boardingTime: "08:00",
-      street: "Rua Principal",
-      number: 123,
-      complement: "Apto 201",
-      neighborhood: "Centro",
-      city: "São Paulo",
-      state: "SP",
-      cep: "01000-000",
-    },
-    {
-      name: "Parada Norte",
-      boardingTime: "09:30",
-      street: "Av. dos Imigrantes",
-      number: 45,
-      complement: "",
-      neighborhood: "Imigrantes",
-      city: "Belo Horizonte",
-      state: "MG",
-      cep: "30140-080",
-    },
-    {
-      name: "Parada Sul",
-      boardingTime: "10:00",
-      street: "Rua das Flores",
-      number: 789,
-      complement: "Próximo à praça",
-      neighborhood: "Jardim das Flores",
-      city: "Curitiba",
-      state: "PR",
-      cep: "80210-300",
-    },
-    {
-      name: "Parada Oeste",
-      boardingTime: "11:30",
-      street: "Av. dos Bandeirantes",
-      number: 1000,
-      complement: "",
-      neighborhood: "Bandeirantes",
-      city: "São Paulo",
-      state: "SP",
-      cep: "04071-000",
-    },
-    {
-      name: "Parada Leste",
-      boardingTime: "12:00",
-      street: "Rua do Comércio",
-      number: 321,
-      complement: "",
-      neighborhood: "Comércio",
-      city: "Salvador",
-      state: "BA",
-      cep: "40015-160",
-    },
-    {
-      name: "Parada Leste",
-      boardingTime: "12:00",
-      street: "Rua do Comércio",
-      number: 321,
-      complement: "",
-      neighborhood: "Comércio",
-      city: "Salvador",
-      state: "BA",
-      cep: "40015-160",
-    },
-  ];
+import React, { useEffect, useState } from "react";
+import StopCard from "@/components/admin/stops/StopCard";
+import { fetchStops } from "@/services/stopService"; // Serviço do front-end
+import { useSession } from "next-auth/react";
+
+interface Stop {
+  id: number;
+  name: string;
+  street: string;
+  number: number | null;
+  complement: string | null;
+  neighborhood: string | null;
+  city_name: string;
+  state: string;
+  cep: number | null;
+}
+
+const StopsPage: React.FC = () => {
+  const { data: session } = useSession();
+  const [stops, setStops] = useState<Stop[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const getStops = async () => {
+      if (!session) {
+        return; // Espera o carregamento da sessão
+      }
+  
+      let token = session?.jwt as string;
+      if (!token) {
+        setLoading(false);
+        setError("Token não encontrado");
+        return;
+      }
+  
+      try {
+        const response = await fetchStops(token);
+        console.log("response:", response);
+        if (response.success) {
+          setStops(response.data);
+        } else {
+          setError("Erro ao buscar as paradas");
+        }
+      } catch (err) {
+        setError("Erro ao buscar as paradas");
+      }
+      setLoading(false);
+    };
+  
+    getStops();
+  }, [session]); // Adiciona 'session' como dependência para garantir o carregamento
+  
+
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-2">
       <h2 className="mb-4 text-center">Visualizar Paradas</h2>
-      <div className="row">
-        {stops.map((stop, index) => (
-          <div className="col-md-4 mb-3" key={index}>
-            <StopCard
-              name={stop.name}
-              boardingTime={stop.boardingTime}
-              street={stop.street}
-              number={stop.number}
-              complement={stop.complement}
-              neighborhood={stop.neighborhood}
-              city={stop.city}
-              state={stop.state}
-              cep={stop.cep}
-            />
+      <div className="row gy-4">
+        {stops.length > 0 ? (
+          stops.map((stop) => (
+            <div className="col-md-4" key={stop.id}>
+              <StopCard
+                name={stop.name}
+                street={stop.street}
+                number={stop.number}
+                complement={stop.complement}
+                neighborhood={stop.neighborhood}
+                city={stop.city_name}
+                state={stop.state}
+                cep={stop.cep}
+              />
+            </div>
+          ))
+        ) : (
+          <div className="col-md-12">
+            <p className="text-center">Nenhuma parada encontrada.</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
 };
 
-export default VisualizarParadasPage;
+export default StopsPage;

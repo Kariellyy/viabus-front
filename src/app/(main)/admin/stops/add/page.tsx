@@ -1,112 +1,98 @@
-import React from "react";
+'use client';
+
+import AddressForm from "@/components/common/AddressForm";
+import React, { useState } from "react";
+import { addStop } from "@/services/stopService";  // Import the service
+import { useSession } from "next-auth/react";
 
 const AddPage: React.FC = () => {
+
+  const { data: session } = useSession();
+
+  const [stopData, setStopData] = useState({
+    name: "",
+    neighborhood: "",
+    street: "",
+    number: "",
+    complement: "",
+    city: "",
+    state: "",
+    cep: "",
+  });
+  
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setStopData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const result = await addStop(session?.jwt as string, stopData);
+
+    if (result.success) {
+      alert("Parada adicionada com sucesso!");
+      setStopData({
+        name: "",
+        neighborhood: "",
+        street: "",
+        number: "",
+        complement: "",
+        city: "",
+        state: "",
+        cep: "",
+      });
+    } else {
+      alert(`Erro: ${result.error}`);
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="d-flex justify-content-center align-items-center">
-      <div className="card col-8 shadow">
-        <div className="card-body">
-          <h5 className="card-title text-center mb-4">Adicionar Localização</h5>
-          <form>
-            <div className="row mb-3">
-              <div className="col-6">
-                <div className="mb-3">
-                  <label htmlFor="selectRoute" className="form-label">
-                    Selecione a rota
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="selectRoute"
-                    placeholder="Selecione a rota"
-                  />
+      <div className="col-md-10">
+        <div className="card shadow-sm">
+          <div className="card-body">
+            <h5 className="card-title text-center mb-4">Adicionar Parada</h5>
+
+            <div>
+              <h6>Informações da Parada</h6>
+              <hr />
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <div className="col-md mb-3">
+                    <label htmlFor="name" className="form-label">
+                      Nome da parada <span className="text-danger">*</span>
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      id="name"
+                      value={stopData.name}
+                      onChange={handleChange}
+                      placeholder="Insira o nome da parada"
+                      required
+                    />
+                  </div>
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="origin" className="form-label">
-                    Origem da Rota
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="origin"
-                    placeholder="Origem da Rota"
-                  />
+
+                <AddressForm formData={stopData} setFormData={setStopData} />
+
+                <div className="d-grid">
+                  <button type="submit" className="btn btn-success mt-3" disabled={loading}>
+                    {loading ? 'Salvando...' : 'Salvar Parada'}
+                  </button>
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="destination" className="form-label">
-                    Destino da Rota
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="destination"
-                    placeholder="Destino da Rota"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="neighborhood" className="form-label">
-                    Bairro
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="neighborhood"
-                    placeholder="Bairro"
-                  />
-                </div>
-              </div>
-              <div className="col-6">
-                <div className="mb-3">
-                  <label htmlFor="road" className="form-label">
-                    Rua
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="road"
-                    placeholder="Rua"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="state" className="form-label">
-                    Estado
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="state"
-                    placeholder="Estado"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="complement" className="form-label">
-                    Complemento
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="complement"
-                    placeholder="Complemento"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="CEP" className="form-label">
-                    CEP
-                  </label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    id="CEP"
-                    placeholder="CEP"
-                  />
-                </div>
-              </div>
+              </form>
             </div>
-            <div className="d-grid">
-              <button type="submit" className="btn btn-success">
-                Salvar
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
