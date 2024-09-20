@@ -35,6 +35,14 @@ export default function Home() {
           </div>
         </div>
       </nav>
+      <main>
+        <h1>Home</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
+          quidem, dolorum, voluptatem, quod quas quibusdam quae quia nesciunt
+          fugiat autem repellendus. Quisquam, quidem. Quisquam, quidem.
+        </p>
+      </main>
     </>
   );
 }

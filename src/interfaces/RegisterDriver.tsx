@@ -1,3 +1,0 @@
-interface RegisterDriverProps {
-  activePage: string;
-}

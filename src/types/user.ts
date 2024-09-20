@@ -1,16 +1,25 @@
-import { UserRole } from "./userRole";
-
+import { RoleEnum } from "./enums/roleEnum";
 
 export interface User {
-  id: number;
+  // serial identifier for the user
+  id?: number;
+
+  // required
   name: string;
   email: string;
+
+  // optional
+  role?: RoleEnum;
   cpf?: string;
   photo_url?: string;
-  created_at: Date;
-  addresses: Address[];
-  tickets: Ticket[];
-  telephones: Telephone[];
-  role: UserRole;
-  trips: Trip[];
+
+  // relationships
+  addresses?: Address[];
+  tickets?: Ticket[];
+  telephones?: Telephone[];
+  trips?: Trip[];
+
+  // timestamps
+  created_at?: Date;
+  updated_at?: Date;
 }

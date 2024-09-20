@@ -20,16 +20,12 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
           <a className="navbar-brand ms-2" href="#">
             VIABUS
           </a>
-          <div className="d-flex gap-3"></div>
         </div>
       </nav>
 
-      {/* Layout principal com grid responsivo */}
-      <div
-        className="container-fluid flex-grow-1"
-        style={{ marginTop: "56px" }}
-      >
-        <div className="row flex-nowrap">
+      {/* Layout principal */}
+      <div className="container-fluid" style={{ marginTop: "56px", height: "calc(100vh - 56px)" }}>
+        <div className="row flex-nowrap h-100">
           {/* Sidebar offcanvas para dispositivos móveis */}
           <div
             className="offcanvas offcanvas-start bg-dark text-white"
@@ -50,12 +46,12 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
           </div>
 
           {/* Sidebar fixa para telas maiores */}
-          <div className="col-auto col-md-3 col-lg-2 px-sm-2 bg-dark text-white d-none d-md-block">
+          <div className="col-md-3 col-lg-2 bg-dark text-white d-none d-md-block">
             <Sidebar />
           </div>
 
-          {/* Conteúdo principal */}
-          <div className="col py-3 d-flex justify-content-center align-items-center">
+          {/* Conteúdo principal com scroll interno */}
+          <div className="col-md-9 col-lg-10 p-md-3 overflow-auto">
             <div className="content-wrapper w-100">{children}</div>
           </div>
         </div>
