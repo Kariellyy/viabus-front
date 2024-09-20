@@ -43,14 +43,6 @@ export default function Home() {
         </div>
       </nav>
       <main>
-        <h1>Home</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
-          quidem, dolorum, voluptatem, quod quas quibusdam quae quia nesciunt
-          fugiat autem repellendus. Quisquam, quidem. Quisquam, quidem.
-        </p>
-      </main>
-      <main>
         <section
           className={`d-flex justify-content-start align-items-center h-75 py-5 ${styles.backgroundImage}`}
         >
