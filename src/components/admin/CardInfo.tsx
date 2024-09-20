@@ -1,7 +1,19 @@
 import React from "react";
 import styles from "@/styles/main.module.css";
 
-export default function CardInfo({ title, value, icon: Icon, color }: CardProps) {
+interface CardProps {
+  title: string;
+  value: string;
+  icon: React.ComponentType;
+  color: string;
+}
+
+export default function CardInfo({
+  title,
+  value,
+  icon: Icon,
+  color,
+}: CardProps) {
   return (
     <div
       className={`card rounded-3 border-0 ${styles.card1} d-flex flex-grow-1`}
