@@ -28,11 +28,25 @@ const EmployeeListPage: React.FC = () => {
       role: "Motorista",
       phoneNumber: "(71) 99888-1122",
     },
+    {
+      name: "João Souza",
+      email: "joao.souza@viabus.com",
+      role: "Gerente",
+      phoneNumber: "(21) 91234-5678",
+    },
+    {
+      name: "Ana Costa",
+      email: "ana.costa@viabus.com",
+      role: "Motorista",
+      phoneNumber: "(71) 99888-1122",
+    },
+
+
   ];
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Lista de Funcionários</h2>
+      <h2 className="mb-4 text-center">Lista de Funcionários</h2>
       <div className="row">
         {employees.map((employee, index) => (
           <div className="col-md-4" key={index}>

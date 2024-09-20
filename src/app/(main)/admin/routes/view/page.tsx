@@ -22,11 +22,10 @@ const VisualizarRotasPage: React.FC = () => {
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Visualizar Rotas</h2>
+      <h2 className="mb-4 text-center">Visualizar Rotas</h2>
       <div className="row">
-        {/* Mapeando as rotas para exibir cada uma delas com o componente RouteCard */}
         {routes.map((route, index) => (
-          <div className="col-md-4 mb-4" key={index}>
+          <div className="col-md-4 mb-1" key={index}>
             <RouteCard
               from={route.from}
               to={route.to}

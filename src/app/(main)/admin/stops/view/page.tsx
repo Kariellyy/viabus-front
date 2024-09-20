@@ -37,14 +37,47 @@ const VisualizarParadasPage: React.FC = () => {
       state: "PR",
       cep: "80210-300",
     },
+    {
+      name: "Parada Oeste",
+      boardingTime: "11:30",
+      street: "Av. dos Bandeirantes",
+      number: 1000,
+      complement: "",
+      neighborhood: "Bandeirantes",
+      city: "São Paulo",
+      state: "SP",
+      cep: "04071-000",
+    },
+    {
+      name: "Parada Leste",
+      boardingTime: "12:00",
+      street: "Rua do Comércio",
+      number: 321,
+      complement: "",
+      neighborhood: "Comércio",
+      city: "Salvador",
+      state: "BA",
+      cep: "40015-160",
+    },
+    {
+      name: "Parada Leste",
+      boardingTime: "12:00",
+      street: "Rua do Comércio",
+      number: 321,
+      complement: "",
+      neighborhood: "Comércio",
+      city: "Salvador",
+      state: "BA",
+      cep: "40015-160",
+    },
   ];
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Visualizar Paradas</h2>
+      <h2 className="mb-4 text-center">Visualizar Paradas</h2>
       <div className="row">
         {stops.map((stop, index) => (
-          <div className="col-md-4" key={index}>
+          <div className="col-md-4 mb-3" key={index}>
             <StopCard
               name={stop.name}
               boardingTime={stop.boardingTime}
