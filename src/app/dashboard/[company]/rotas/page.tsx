@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { RouteTable } from "@/components/routes/route-table";
-import { mockRoutes } from "@/mocks/routes";
-import { Plus } from "lucide-react";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { RouteTable } from '@/components/dashboard/routes/route-table';
+import { mockRoutes } from '@/mocks/routes';
+import { Plus } from 'lucide-react';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { NewRouteDialog } from "@/components/routes/new-route-dialog";
-import { ViewRouteDialog } from "@/components/routes/view-route-dialog";
-import { Route } from "@/types/route";
+} from '@/components/ui/card';
+import { NewRouteDialog } from '@/components/dashboard/routes/new-route-dialog';
+import { ViewRouteDialog } from '@/components/dashboard/routes/view-route-dialog';
+import { Route } from '@/types/route';
 
 export default function RoutesPage() {
   const [routes] = useState(mockRoutes);

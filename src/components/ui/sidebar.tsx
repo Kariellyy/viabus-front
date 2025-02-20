@@ -1,4 +1,7 @@
-import Link from "next/link";
+'use client';
+
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import {
   LayoutDashboard,
   Map,
@@ -9,31 +12,31 @@ import {
   Ticket,
   LogOut,
   UserCircle,
-} from "lucide-react";
-import { Avatar, AvatarFallback } from "./avatar";
-import { Button } from "./button";
-import { cn } from "@/lib/utils";
+} from 'lucide-react';
+import { Avatar, AvatarFallback } from './avatar';
+import { Button } from './button';
+import { cn } from '@/lib/utils';
 
 const menuCategories = {
   geral: {
-    label: "Geral",
-    items: [{ name: "Painel de Controle", icon: LayoutDashboard, path: "/" }],
+    label: 'Geral',
+    items: [{ name: 'Painel de Controle', icon: LayoutDashboard, path: '' }],
   },
   operacional: {
-    label: "Operacional",
+    label: 'Operacional',
     items: [
-      { name: "Passagens", icon: Ticket, path: "/passagens" },
-      { name: "Viagens", icon: Map, path: "/viagens" },
-      { name: "Rotas", icon: Navigation, path: "/rotas" },
-      { name: "Paradas", icon: MapPin, path: "/paradas" },
-      { name: "Clientes", icon: UserCircle, path: "/clientes" },
+      { name: 'Passagens', icon: Ticket, path: '/passagens' },
+      { name: 'Viagens', icon: Map, path: '/viagens' },
+      { name: 'Rotas', icon: Navigation, path: '/rotas' },
+      { name: 'Paradas', icon: MapPin, path: '/paradas' },
+      { name: 'Clientes', icon: UserCircle, path: '/clientes' },
     ],
   },
   sistema: {
-    label: "Sistema",
+    label: 'Sistema',
     items: [
-      { name: "Relatórios", icon: FileText, path: "/relatorios" },
-      { name: "Funcionários", icon: Users, path: "/funcionarios" },
+      { name: 'Relatórios', icon: FileText, path: '/relatorios' },
+      { name: 'Funcionários', icon: Users, path: '/funcionarios' },
     ],
   },
 };
@@ -58,13 +61,14 @@ function UserInfo() {
 }
 
 export function Sidebar() {
+  const params = useParams();
+  const company = params.company as string;
+
   return (
     <div className="flex flex-col h-screen border-r">
       <div className="flex-1 space-y-2 py-4">
         <div className="px-3">
-          <h2 className="px-4 text-lg font-semibold tracking-tight">
-            ViaBus
-          </h2>
+          <h2 className="px-4 text-lg font-semibold tracking-tight">ViaBus</h2>
         </div>
         <div className="space-y-1">
           {Object.entries(menuCategories).map(([key, category]) => (
@@ -76,10 +80,10 @@ export function Sidebar() {
                 {category.items.map((item) => (
                   <Link
                     key={item.path}
-                    href={item.path}
+                    href={`/dashboard/${company}${item.path}`}
                     className={cn(
-                      "group flex items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
-                      "text-muted-foreground"
+                      'group flex items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground',
+                      'text-muted-foreground'
                     )}
                   >
                     <item.icon className="mr-2 h-4 w-4" />

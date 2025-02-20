@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { StopTable } from "@/components/stops/stop-table";
-import { mockStops } from "@/mocks/stops";
-import { Plus, Users, Route, MapPin } from "lucide-react";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { StopTable } from '@/components/dashboard/stops/stop-table';
+import { mockStops } from '@/mocks/stops';
+import { Plus, Users, Route, MapPin } from 'lucide-react';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { NewStopDialog } from "@/components/stops/new-stop-dialog";
+} from '@/components/ui/card';
+import { NewStopDialog } from '@/components/dashboard/stops/new-stop-dialog';
 
 export default function StopsPage() {
   const [stops] = useState(mockStops);
@@ -66,9 +66,7 @@ export default function StopsPage() {
             <Route className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              16
-            </div>
+            <div className="text-2xl font-bold">16</div>
             <p className="text-xs text-muted-foreground">conexões totais</p>
           </CardContent>
         </Card>

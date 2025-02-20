@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -8,32 +8,32 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
-import { Search, Plus } from "lucide-react";
-import { NewTicketDialog } from "@/components/tickets/new-ticket-dialog";
+} from '@/components/ui/table';
+import { Input } from '@/components/ui/input';
+import { Search, Plus } from 'lucide-react';
+import { NewTicketDialog } from '@/components/dashboard/tickets/new-ticket-dialog';
 
 // Mock de dados das passagens
 const mockTickets = [
   {
-    id: "1",
-    passenger: "Maria Silva",
-    route: "Centro - Universidade",
-    departureTime: "20/03/2024, 08:00",
-    boardingPoint: "Terminal Central",
-    landingPoint: "Campus Universitário",
-    status: "Agendada",
-    price: "R$ 4,50",
+    id: '1',
+    passenger: 'Maria Silva',
+    route: 'Centro - Universidade',
+    departureTime: '20/03/2024, 08:00',
+    boardingPoint: 'Terminal Central',
+    landingPoint: 'Campus Universitário',
+    status: 'Agendada',
+    price: 'R$ 4,50',
   },
   {
-    id: "2",
-    passenger: "João Santos",
-    route: "Centro - Universidade",
-    departureTime: "20/03/2024, 08:00",
-    boardingPoint: "Terminal Central",
-    landingPoint: "Campus Universitário",
-    status: "Agendada",
-    price: "R$ 4,50",
+    id: '2',
+    passenger: 'João Santos',
+    route: 'Centro - Universidade',
+    departureTime: '20/03/2024, 08:00',
+    boardingPoint: 'Terminal Central',
+    landingPoint: 'Campus Universitário',
+    status: 'Agendada',
+    price: 'R$ 4,50',
   },
 ];
 
