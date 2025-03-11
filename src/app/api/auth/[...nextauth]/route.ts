@@ -8,7 +8,6 @@ const auth0Options = {
       clientSecret: process.env.AUTH0_CLIENT_SECRET as string,
       issuer: process.env.AUTH0_DOMAIN as string,
       authorization: {
-        url: process.env.NEXT_PUBLIC_APP_URL,
         params: {
           prompt: 'login',
           audience: process.env.AUTH0_ISSUER,
@@ -32,9 +31,44 @@ const auth0Options = {
     },
     async session({ session, token }: any) {
       session.accessToken = token.accessToken;
+
+      // Busca informações do usuário no back-end
+      if (token.accessToken) {
+        try {
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+          // Enviar o token para nossa API para validação e obtenção dos dados do usuário
+          const response = await fetch(`${apiUrl}/auth/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: token.accessToken }),
+          });
+
+          if (response.ok) {
+            const userData = await response.json();
+            session.user = userData.user;
+            session.companies = userData.companies;
+            session.currentCompany = userData.companies[0] || null;
+          } else {
+            console.error(
+              'Erro ao buscar dados do usuário:',
+              await response.text()
+            );
+          }
+        } catch (error) {
+          console.error('Erro ao buscar dados do usuário:', error);
+        }
+      } else {
+        console.warn(
+          'Token de acesso não disponível para buscar dados do usuário'
+        );
+      }
       return session;
     },
   },
+  debug: process.env.NODE_ENV === 'development',
 };
 
 const handler = NextAuth(auth0Options);
