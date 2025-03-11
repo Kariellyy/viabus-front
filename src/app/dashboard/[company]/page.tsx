@@ -1,7 +1,11 @@
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Car, MapPin, TrendingUp } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
+  const { data: session } = useSession();
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col gap-2">
@@ -11,6 +15,7 @@ export default function Home() {
         <p className="text-sm sm:text-base text-muted-foreground">
           Bem-vindo ao sistema de gerenciamento de passagens
         </p>
+        <pre>{JSON.stringify(session, null, 2)}</pre>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">

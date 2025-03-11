@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-
 import { ThemeProvider } from '@/components/theme/theme-provider';
+import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'ViaBus',
@@ -16,15 +16,17 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          storageKey="viabus-theme"
-        >
-          {children}
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            storageKey="viabus-theme"
+          >
+            {children}
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

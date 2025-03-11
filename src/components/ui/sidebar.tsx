@@ -13,9 +13,10 @@ import {
   LogOut,
   UserCircle,
 } from 'lucide-react';
-import { Avatar, AvatarFallback } from './avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
+import { useSession, signOut } from 'next-auth/react';
 
 const menuCategories = {
   geral: {
@@ -41,19 +42,26 @@ const menuCategories = {
   },
 };
 
-function UserInfo() {
+function UserInfo({ session }: { session: any }) {
   return (
     <div className="flex items-center justify-between gap-2 p-4 border-t">
       <div className="flex items-center gap-2">
         <Avatar>
-          <AvatarFallback>JS</AvatarFallback>
+          <AvatarImage src={session.data?.user?.image} />
         </Avatar>
         <div className="flex flex-col">
-          <span className="text-sm font-medium">João Silva</span>
+          <span className="text-sm font-medium">
+            {session.data?.user?.name}
+          </span>
           <span className="text-xs text-muted-foreground">Administrador</span>
         </div>
       </div>
-      <Button variant="ghost" size="icon" className="h-8 w-8">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8"
+        onClick={() => signOut({ callbackUrl: '/' })}
+      >
         <LogOut className="h-4 w-4" />
       </Button>
     </div>
@@ -63,6 +71,7 @@ function UserInfo() {
 export function Sidebar() {
   const params = useParams();
   const company = params.company as string;
+  const session = useSession();
 
   return (
     <div className="flex flex-col h-screen border-r">
@@ -95,7 +104,7 @@ export function Sidebar() {
           ))}
         </div>
       </div>
-      <UserInfo />
+      <UserInfo session={session} />
     </div>
   );
 }
