@@ -1,21 +1,43 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { StopTable } from '@/components/dashboard/stops/stop-table';
-import { mockStops } from '@/mocks/stops';
-import { Plus, Users, Route, MapPin } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { StopTable } from "@/components/dashboard/stops/stop-table";
+import { Plus, Users, Route, MapPin } from "lucide-react";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { NewStopDialog } from '@/components/dashboard/stops/new-stop-dialog';
+} from "@/components/ui/card";
+import { NewStopDialog } from "@/components/dashboard/stops/new-stop-dialog";
+import { StopsService } from "@/services/stops.service";
+import { Stop } from "@/types/stop";
+import { toast } from "sonner";
 
 export default function StopsPage() {
-  const [stops] = useState(mockStops);
+  const [stops, setStops] = useState<Stop[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStops = async () => {
+      try {
+        setIsLoading(true);
+        const data = await StopsService.getAll();
+        setStops(data);
+      } catch (error) {
+        console.error("Erro ao buscar paradas:", error);
+        toast.error(
+          "Não foi possível carregar as paradas. Tente novamente mais tarde."
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStops();
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -38,9 +60,12 @@ export default function StopsPage() {
             <MapPin className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stops.length}</div>
+            <div className="text-2xl font-bold">
+              {isLoading ? "..." : stops.length}
+            </div>
             <p className="text-xs text-muted-foreground">
-              {stops.filter((s) => s.isActive).length} paradas ativas
+              {isLoading ? "..." : stops.filter((s) => s.isActive).length}{" "}
+              paradas ativas
             </p>
           </CardContent>
         </Card>
@@ -77,7 +102,13 @@ export default function StopsPage() {
           <CardTitle>Todas as Paradas</CardTitle>
         </CardHeader>
         <CardContent>
-          <StopTable stops={stops} />
+          {isLoading ? (
+            <div className="flex justify-center py-8">
+              <div className="animate-spin h-10 w-10 border-4 border-primary border-t-transparent rounded-full"></div>
+            </div>
+          ) : (
+            <StopTable stops={stops} />
+          )}
         </CardContent>
       </Card>
     </div>
