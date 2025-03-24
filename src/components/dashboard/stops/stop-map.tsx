@@ -21,20 +21,14 @@ const icon = new Icon({
 
 interface StopMapProps {
   onLocationSelect: (coords: { lat: number; lng: number }) => void;
-  initialPosition?: { lat: number; lng: number };
+  initialPosition: { lat: number; lng: number };
 }
 
-function RecenterMap({
-  position,
-}: {
-  position: { lat: number; lng: number } | null;
-}) {
+function RecenterMap({ position }: { position: { lat: number; lng: number } }) {
   const map = useMap();
 
   useEffect(() => {
-    if (position) {
-      map.setView([position.lat, position.lng], 16);
-    }
+    map.setView([position.lat, position.lng], 13);
   }, [map, position]);
 
   return null;
@@ -44,7 +38,7 @@ function LocationMarker({
   position,
   onLocationSelect,
 }: {
-  position: LatLng | null;
+  position: LatLng;
   onLocationSelect: (coords: { lat: number; lng: number }) => void;
 }) {
   const map = useMapEvents({
@@ -54,7 +48,7 @@ function LocationMarker({
     },
   });
 
-  return position ? (
+  return (
     <Marker
       position={position}
       icon={icon}
@@ -67,19 +61,12 @@ function LocationMarker({
         },
       }}
     />
-  ) : null;
+  );
 }
 
 export function StopMap({ onLocationSelect, initialPosition }: StopMapProps) {
-  const position = initialPosition || {
-    lat: -5.08921,
-    lng: -42.8016,
-  };
-
-  const [positionState, setPositionState] = useState<LatLng | null>(
-    initialPosition
-      ? new LatLng(initialPosition.lat, initialPosition.lng)
-      : null
+  const [positionState, setPositionState] = useState<LatLng>(
+    new LatLng(initialPosition.lat, initialPosition.lng)
   );
 
   const handleLocationSelect = (coords: { lat: number; lng: number }) => {
@@ -87,15 +74,14 @@ export function StopMap({ onLocationSelect, initialPosition }: StopMapProps) {
     onLocationSelect(coords);
   };
 
+  // Atualizar o estado quando initialPosition mudar
   useEffect(() => {
-    if (initialPosition) {
-      setPositionState(new LatLng(initialPosition.lat, initialPosition.lng));
-    }
+    setPositionState(new LatLng(initialPosition.lat, initialPosition.lng));
   }, [initialPosition]);
 
   return (
     <MapContainer
-      center={position}
+      center={[initialPosition.lat, initialPosition.lng]}
       zoom={13}
       scrollWheelZoom={true}
       style={{
@@ -113,7 +99,7 @@ export function StopMap({ onLocationSelect, initialPosition }: StopMapProps) {
         position={positionState}
         onLocationSelect={handleLocationSelect}
       />
-      <RecenterMap position={initialPosition || null} />
+      <RecenterMap position={initialPosition} />
     </MapContainer>
   );
 }

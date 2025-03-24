@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { StopsService } from "@/services/stops.service";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
 
 // Carrega o mapa dinamicamente apenas no cliente
 const DynamicStopMap = dynamic(
@@ -25,6 +26,20 @@ interface Coordinates {
   lng: number;
 }
 
+interface CepResponse {
+  cep: string;
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+  ibge: string;
+  gia: string;
+  ddd: string;
+  siafi: string;
+  erro?: boolean;
+}
+
 export function StopForm() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -32,42 +47,114 @@ export function StopForm() {
   const [hasShelter, setHasShelter] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingCep, setLoadingCep] = useState(false);
   const [coordinates, setCoordinates] = useState<Coordinates>({
     lat: -5.08921,
     lng: -42.8016,
   });
+
+  // Estados para os campos de endereço
+  const [cep, setCep] = useState("");
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState("");
+  const [complement, setComplement] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+
   const mapRef = useRef<any>(null);
 
   const handleLocationSelect = (coords: Coordinates) => {
     setCoordinates(coords);
   };
 
+  // Função para buscar CEP
+  const fetchAddressByCep = async (cep: string) => {
+    if (cep.length !== 8 || !/^\d+$/.test(cep)) {
+      return;
+    }
+
+    setLoadingCep(true);
+
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      if (response.ok) {
+        const data: CepResponse = await response.json();
+
+        if (!data.erro) {
+          setStreet(data.logradouro || "");
+          setNeighborhood(data.bairro || "");
+          setCity(data.localidade || "");
+          setState(data.uf || "");
+
+          // Buscar coordenadas da cidade para centralizar o mapa
+          const geocodeResponse = await fetch(
+            `https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(
+              data.localidade
+            )}&state=${encodeURIComponent(data.uf)}&country=Brazil&format=json`
+          );
+
+          if (geocodeResponse.ok) {
+            const geocodeData = await geocodeResponse.json();
+            if (geocodeData.length > 0) {
+              const { lat, lon } = geocodeData[0];
+              setCoordinates({
+                lat: parseFloat(lat),
+                lng: parseFloat(lon),
+              });
+            }
+          }
+
+          toast.success("CEP encontrado!");
+        } else {
+          toast.error("CEP não encontrado.");
+        }
+      } else {
+        toast.error("Erro ao buscar CEP. Verifique se o formato está correto.");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar CEP:", error);
+      toast.error("Erro ao buscar CEP. Tente novamente mais tarde.");
+    } finally {
+      setLoadingCep(false);
+    }
+  };
+
+  // Efeito para buscar CEP quando o campo for preenchido
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (cep.length === 8) {
+        fetchAddressByCep(cep);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [cep]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
+    const form = e.target as HTMLFormElement;
+    const nameInput = form.querySelector("#name") as HTMLInputElement;
 
     const address: Address = {
-      cep: formData.get("cep") as string,
-      street: formData.get("street") as string,
-      number: formData.get("number") as string,
-      complement: (formData.get("complement") as string) || undefined,
-      neighborhood: formData.get("neighborhood") as string,
-      city: formData.get("city") as string,
-      state: formData.get("state") as string,
+      cep,
+      street,
+      number,
+      complement: complement || undefined,
+      neighborhood,
+      city,
+      state,
       latitude: coordinates.lat.toString(),
       longitude: coordinates.lng.toString(),
     };
 
     const stopData: Omit<Stop, "id"> = {
-      name: formData.get("name") as string,
+      name: nameInput.value,
       address,
       isActive,
       hasAccessibility,
       hasShelter,
     };
-
-    console.log("Session at form submit:", session);
-    console.log("Current company:", session?.currentCompany);
 
     try {
       setIsLoading(true);
@@ -111,13 +198,20 @@ export function StopForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="cep">CEP</Label>
+          <Label htmlFor="cep">
+            CEP{" "}
+            {loadingCep && (
+              <Loader2 className="inline-block animate-spin ml-2 h-4 w-4" />
+            )}
+          </Label>
           <Input
             id="cep"
             name="cep"
             placeholder="Ex: 64000000"
             required
             maxLength={8}
+            value={cep}
+            onChange={(e) => setCep(e.target.value.replace(/\D/g, ""))}
           />
         </div>
 
@@ -128,12 +222,21 @@ export function StopForm() {
             name="street"
             placeholder="Ex: Avenida Frei Serafim"
             required
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
           />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="number">Número</Label>
-          <Input id="number" name="number" placeholder="Ex: 123" required />
+          <Input
+            id="number"
+            name="number"
+            placeholder="Ex: 123"
+            required
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+          />
         </div>
 
         <div className="space-y-2">
@@ -142,6 +245,8 @@ export function StopForm() {
             id="complement"
             name="complement"
             placeholder="Ex: Bloco A, Apto 101"
+            value={complement}
+            onChange={(e) => setComplement(e.target.value)}
           />
         </div>
 
@@ -152,12 +257,21 @@ export function StopForm() {
             name="neighborhood"
             placeholder="Ex: Centro"
             required
+            value={neighborhood}
+            onChange={(e) => setNeighborhood(e.target.value)}
           />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="city">Cidade</Label>
-          <Input id="city" name="city" placeholder="Ex: Teresina" required />
+          <Input
+            id="city"
+            name="city"
+            placeholder="Ex: Teresina"
+            required
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
         </div>
 
         <div className="space-y-2">
@@ -168,6 +282,8 @@ export function StopForm() {
             placeholder="Ex: PI"
             required
             maxLength={2}
+            value={state}
+            onChange={(e) => setState(e.target.value.toUpperCase())}
           />
         </div>
 
@@ -180,7 +296,8 @@ export function StopForm() {
           </div>
           <DynamicStopMap
             onLocationSelect={handleLocationSelect}
-            initialPosition={coordinates || undefined}
+            initialPosition={coordinates}
+            key={`${coordinates.lat}-${coordinates.lng}`}
           />
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">

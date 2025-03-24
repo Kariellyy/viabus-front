@@ -17,6 +17,7 @@ import {
   Umbrella,
   MapPin,
   Home,
+  ExternalLink,
 } from "lucide-react";
 import { StopsService } from "@/services/stops.service";
 import { toast } from "sonner";
@@ -50,6 +51,13 @@ export function StopTable({ stops }: StopTableProps) {
         setDeletingId(null);
       }
     }
+  };
+
+  const openInGoogleMaps = (lat: string, lng: string) => {
+    if (!lat || !lng) return;
+
+    const url = `https://www.google.com/maps?q=${lat},${lng}`;
+    window.open(url, "_blank");
   };
 
   return (
@@ -93,20 +101,21 @@ export function StopTable({ stops }: StopTableProps) {
             </TableCell>
             <TableCell>
               {stop.address?.latitude && stop.address?.longitude ? (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center gap-1 cursor-help">
-                        <MapPin className="h-4 w-4 text-muted-foreground" />
-                        <span>Ver no mapa</span>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Lat: {stop.address.latitude?.substring(0, 8)}</p>
-                      <p>Lng: {stop.address.longitude?.substring(0, 8)}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center gap-1 text-xs"
+                  onClick={() =>
+                    openInGoogleMaps(
+                      stop.address.latitude!,
+                      stop.address.longitude!
+                    )
+                  }
+                >
+                  <MapPin className="h-4 w-4 text-muted-foreground" />
+                  <span>Ver no mapa</span>
+                  <ExternalLink className="h-3 w-3 ml-1" />
+                </Button>
               ) : (
                 <span className="text-muted-foreground">Sem coordenadas</span>
               )}
