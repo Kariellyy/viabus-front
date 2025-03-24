@@ -43,60 +43,60 @@ export function RouteForm() {
     (stop) => !selectedStops.find((s) => s.id === stop.id)
   );
 
-  useEffect(() => {
-    async function fetchRouteInfo() {
-      if (selectedStops.length < 2) {
-        setRouteInfo((prev) => ({ ...prev!, distance: "" }));
-        return;
-      }
+  // useEffect(() => {
+  //   async function fetchRouteInfo() {
+  //     if (selectedStops.length < 2) {
+  //       setRouteInfo((prev) => ({ ...prev!, distance: "" }));
+  //       return;
+  //     }
 
-      const coordinates = selectedStops
-        .map((stop) => {
-          const mockStop = mockStops.find((s) => s.id === stop.id);
-          return mockStop
-            ? `${mockStop.coordinates.lng},${mockStop.coordinates.lat}`
-            : null;
-        })
-        .filter(Boolean)
-        .join(";");
+  //     const coordinates = selectedStops
+  //       .map((stop) => {
+  //         const mockStop = mockStops.find((s) => s.id === stop.id);
+  //         return mockStop
+  //           ? `${mockStop.coordinates.lng},${mockStop.coordinates.lat}`
+  //           : null;
+  //       })
+  //       .filter(Boolean)
+  //       .join(";");
 
-      const url = `https://router.project-osrm.org/route/v1/driving/${coordinates}?overview=full`;
+  //     const url = `https://router.project-osrm.org/route/v1/driving/${coordinates}?overview=full`;
 
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
+  //     try {
+  //       const response = await fetch(url);
+  //       const data = await response.json();
 
-        if (data.routes && data.routes[0]) {
-          const route = data.routes[0];
-          setRouteInfo((prev) => ({
-            ...prev!,
-            distance: `${(route.distance / 1000).toFixed(1)}km`,
-          }));
-        }
-      } catch (error) {
-        console.error("Erro ao buscar informações da rota:", error);
-      }
-    }
+  //       if (data.routes && data.routes[0]) {
+  //         const route = data.routes[0];
+  //         setRouteInfo((prev) => ({
+  //           ...prev!,
+  //           distance: `${(route.distance / 1000).toFixed(1)}km`,
+  //         }));
+  //       }
+  //     } catch (error) {
+  //       console.error("Erro ao buscar informações da rota:", error);
+  //     }
+  //   }
 
-    fetchRouteInfo();
-  }, [selectedStops]);
+  //   fetchRouteInfo();
+  // }, [selectedStops]);
 
-  const handleAddStop = (stopId: string) => {
-    const stop = mockStops.find((s) => s.id === stopId);
-    if (stop) {
-      const newStop: RouteStop = {
-        id: stop.id,
-        name: stop.name,
-        estimatedTime: "0:00:00",
-        order: selectedStops.length,
-        coordinates: {
-          lat: stop.coordinates.lat,
-          lng: stop.coordinates.lng,
-        },
-      };
-      setSelectedStops([...selectedStops, newStop]);
-    }
-  };
+  // const handleAddStop = (stopId: string) => {
+  //   const stop = mockStops.find((s) => s.id === stopId);
+  //   if (stop) {
+  //     const newStop: RouteStop = {
+  //       id: stop.id,
+  //       name: stop.name,
+  //       estimatedTime: "0:00:00",
+  //       order: selectedStops.length,
+  //       coordinates: {
+  //         lat: stop.coordinates.lat,
+  //         lng: stop.coordinates.lng,
+  //       },
+  //     };
+  //     setSelectedStops([...selectedStops, newStop]);
+  //   }
+  // };
 
   const handleRemoveStop = (index: number) => {
     setSelectedStops(selectedStops.filter((_, i) => i !== index));
@@ -224,7 +224,7 @@ export function RouteForm() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <Label>Paradas da Rota</Label>
-              <Select onValueChange={handleAddStop}>
+              {/* <Select onValueChange={handleAddStop}>
                 <SelectTrigger className="w-[200px]">
                   <SelectValue placeholder="Adicionar parada" />
                 </SelectTrigger>
@@ -235,7 +235,7 @@ export function RouteForm() {
                     </SelectItem>
                   ))}
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
 
             <DragDropContext onDragEnd={handleDragEnd}>
