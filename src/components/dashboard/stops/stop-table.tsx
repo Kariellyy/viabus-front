@@ -16,10 +16,17 @@ import {
   AccessibilityIcon,
   Umbrella,
   MapPin,
+  Home,
 } from "lucide-react";
 import { StopsService } from "@/services/stops.service";
 import { toast } from "sonner";
 import { useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface StopTableProps {
   stops: Stop[];
@@ -50,6 +57,7 @@ export function StopTable({ stops }: StopTableProps) {
       <TableHeader>
         <TableRow>
           <TableHead>Nome</TableHead>
+          <TableHead>Endereço</TableHead>
           <TableHead>Localização</TableHead>
           <TableHead>Recursos</TableHead>
           <TableHead>Status</TableHead>
@@ -61,13 +69,47 @@ export function StopTable({ stops }: StopTableProps) {
           <TableRow key={stop.id}>
             <TableCell className="font-medium">{stop.name}</TableCell>
             <TableCell>
-              <div className="flex items-center gap-1">
-                <MapPin className="h-4 w-4 text-muted-foreground" />
-                <span>{`Lat: ${stop.latitude.substring(
-                  0,
-                  8
-                )}, Lng: ${stop.longitude.substring(0, 8)}`}</span>
-              </div>
+              {stop.address ? (
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-1">
+                    <Home className="h-4 w-4 text-muted-foreground" />
+                    <span>
+                      {stop.address.street}, {stop.address.number}
+                      {stop.address.complement &&
+                        ` - ${stop.address.complement}`}
+                    </span>
+                  </div>
+                  <span className="text-sm text-muted-foreground">
+                    {stop.address.neighborhood}, {stop.address.city}/
+                    {stop.address.state}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    CEP: {stop.address.cep}
+                  </span>
+                </div>
+              ) : (
+                <span className="text-muted-foreground">Sem endereço</span>
+              )}
+            </TableCell>
+            <TableCell>
+              {stop.address?.latitude && stop.address?.longitude ? (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center gap-1 cursor-help">
+                        <MapPin className="h-4 w-4 text-muted-foreground" />
+                        <span>Ver no mapa</span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Lat: {stop.address.latitude?.substring(0, 8)}</p>
+                      <p>Lng: {stop.address.longitude?.substring(0, 8)}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              ) : (
+                <span className="text-muted-foreground">Sem coordenadas</span>
+              )}
             </TableCell>
             <TableCell className="flex gap-2">
               {stop.hasAccessibility && (

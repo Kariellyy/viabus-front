@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Stop } from "@/types/stop";
+import { Stop, Address } from "@/types/stop";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { StopsService } from "@/services/stops.service";
@@ -40,21 +40,27 @@ export function StopForm() {
 
   const handleLocationSelect = (coords: Coordinates) => {
     setCoordinates(coords);
-    const form = document.querySelector("form");
-    if (form) {
-      (form["latitude"] as HTMLInputElement).value = coords.lat.toFixed(6);
-      (form["longitude"] as HTMLInputElement).value = coords.lng.toFixed(6);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
 
+    const address: Address = {
+      cep: formData.get("cep") as string,
+      street: formData.get("street") as string,
+      number: formData.get("number") as string,
+      complement: (formData.get("complement") as string) || undefined,
+      neighborhood: formData.get("neighborhood") as string,
+      city: formData.get("city") as string,
+      state: formData.get("state") as string,
+      latitude: coordinates.lat.toString(),
+      longitude: coordinates.lng.toString(),
+    };
+
     const stopData: Omit<Stop, "id"> = {
       name: formData.get("name") as string,
-      latitude: formData.get("latitude") as string,
-      longitude: formData.get("longitude") as string,
+      address,
       isActive,
       hasAccessibility,
       hasShelter,
@@ -104,6 +110,67 @@ export function StopForm() {
           />
         </div>
 
+        <div className="space-y-2">
+          <Label htmlFor="cep">CEP</Label>
+          <Input
+            id="cep"
+            name="cep"
+            placeholder="Ex: 64000000"
+            required
+            maxLength={8}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="street">Rua</Label>
+          <Input
+            id="street"
+            name="street"
+            placeholder="Ex: Avenida Frei Serafim"
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="number">Número</Label>
+          <Input id="number" name="number" placeholder="Ex: 123" required />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="complement">Complemento</Label>
+          <Input
+            id="complement"
+            name="complement"
+            placeholder="Ex: Bloco A, Apto 101"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="neighborhood">Bairro</Label>
+          <Input
+            id="neighborhood"
+            name="neighborhood"
+            placeholder="Ex: Centro"
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="city">Cidade</Label>
+          <Input id="city" name="city" placeholder="Ex: Teresina" required />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="state">Estado (UF)</Label>
+          <Input
+            id="state"
+            name="state"
+            placeholder="Ex: PI"
+            required
+            maxLength={2}
+          />
+        </div>
+
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <Label>Localização no Mapa</Label>
@@ -120,40 +187,22 @@ export function StopForm() {
               <Label htmlFor="latitude">Latitude</Label>
               <Input
                 id="latitude"
-                name="latitude"
                 type="text"
                 placeholder="Ex: -23.5505"
-                required
                 value={coordinates.lat.toFixed(6)}
-                onChange={(e) => {
-                  const value = Number(e.target.value);
-                  if (!isNaN(value)) {
-                    setCoordinates((prev) => ({
-                      ...prev,
-                      lat: value,
-                    }));
-                  }
-                }}
+                readOnly
+                disabled
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="longitude">Longitude</Label>
               <Input
                 id="longitude"
-                name="longitude"
                 type="text"
                 placeholder="Ex: -46.6333"
-                required
                 value={coordinates.lng.toFixed(6)}
-                onChange={(e) => {
-                  const value = Number(e.target.value);
-                  if (!isNaN(value)) {
-                    setCoordinates((prev) => ({
-                      ...prev,
-                      lng: value,
-                    }));
-                  }
-                }}
+                readOnly
+                disabled
               />
             </div>
           </div>
